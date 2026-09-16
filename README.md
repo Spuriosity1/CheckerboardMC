@@ -6,7 +6,7 @@ This is a ground-up implementation of Metropois Monte Carlo on the Checkerboard 
 
 # Installing
 
-First, install a compliant HolyC compiler somewhere in PATH -- get it here: https://holyc-lang.com/intall.
+First, install a compliant HolyC compiler somewhere in PATH -- get it here: https://holyc-lang.com/install.
 
 ```bash
 git clone https://github.com/Spuriosity1/CheckerboardMC && cd CheckerboardMC
