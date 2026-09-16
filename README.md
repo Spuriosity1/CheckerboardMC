@@ -2,12 +2,11 @@
 
 > A high performance classical Monte Carlo engine written in pure HolyC.
 
-This is a ground-up implementation of Metropois Monte Carlo on the Checkerboard lattice.
+This is a ground-up implementation of Metropois Monte Carlo on the Checkerboard lattice, using pure pointer arithmetic for greater speed and a custom RNG library including some hand-written x86_64 assembly.
 
 # Installing
 
 First, install a compliant HolyC compiler somewhere in PATH -- get it here: https://holyc-lang.com/intall.
-
 
 ```bash
 git clone https://github.com/Spuriosity1/CheckerboardMC && cd CheckerboardMC
@@ -29,3 +28,9 @@ i.e. $J=1$ is antiferromagnetic.
 
 ## `random_test`
 Called with `random_test <N>` to run N Bernoulli trials. Reports deviation from analytical answer for uniform 0-1 distribution.
+
+# to-do
+
+- [ ] Check that the splitmix64 PRNG works more thoroughly
+- [ ] Check that the fancier Xoshiro128 PRNG actually works
+- [ ] Reorganise the repo
