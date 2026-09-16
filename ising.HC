@@ -94,6 +94,43 @@ U0 MetropolisSweep(Spin* spins, U64 L, Settings* set, F64 beta){
     }
 }
 
+
+U8 Setup(I32 argc, U8 **argv, Settings* set, U64* L)
+{
+    auto help=StrNew("Call with ising <L> <Thot> <Tcold> <seed> <n_step=100> <n_sweep=100> <n_sample=30> <J=1>\n");
+    U8 status=1;
+
+    if (argc < 5) goto error;
+
+    *L = 2*Atoi(argv[1]);
+    set->T_hot = Atod(argv[2]);
+    set->T_cold = Atod(argv[3]);
+    set->rng = NewSplitmix64(Atoi(argv[4]));
+
+    set->n_step=100;
+    set->n_sweep=100;
+    set->n_sample=30;
+    set->J=1;
+
+    switch (argc) {
+        case 9: set->J = Atod(argv[8]);
+        case 8: set->n_sample = Atoi(argv[7]);
+        case 7: set->n_sweep = Atoi(argv[6]);
+        case 6: set->n_step = Atoi(argv[5]);
+            break;
+        default:
+            goto error;
+    }
+    status=0;
+
+    
+error:
+    "%s",help;
+done:
+    Free(help);
+    return status;
+}
+
 // does all initialisation work, leaving the system ready for 
 // application of a MetropolisSweep
 U0 Init(Spin* spins, U64 L)
@@ -108,20 +145,11 @@ U0 Init(Spin* spins, U64 L)
 }
 
 
-U0 Main(I32 argc, U8 **argv)
+U8 Main(I32 argc, U8 **argv)
 {
     Settings set;
-    U64 L = 2*Atoi(argv[1]);
-    set.T_hot = Atod(argv[2]);
-    set.T_cold = Atod(argv[3]);
-    set.rng = NewSplitmix64(Atoi(argv[4]));
-
-    set.n_step=100;
-    set.n_sweep=100;
-    set.n_sample=30;
-
-    set.J=1;
-
+    U64 L;
+    if (Setup(argc, argv, &set, &L)) return 1;
 
     Spin* spins = MAlloc(L * L * sizeof(Spin));
 
@@ -169,5 +197,6 @@ U0 Main(I32 argc, U8 **argv)
 
     free_neighbours(spins, L);
     Free(spins);
-    return;
+
+    return 0;
 }
