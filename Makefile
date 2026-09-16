@@ -3,10 +3,12 @@ HCC=hcc
 
 .PHONY: all clean
 
-% : %.HC
+
+bin/% : %.HC
+	@mkdir -p bin
 	$(HCC) -o $@ $<
 
-all: ising random_test
+all: bin/ising bin/random_test
 
 clean: 
 	rm ising random_test
