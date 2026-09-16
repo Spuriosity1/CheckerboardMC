@@ -11,4 +11,4 @@ bin/% : %.HC
 all: bin/ising bin/random_test
 
 clean: 
-	rm ising random_test
+	rm -rf bin
