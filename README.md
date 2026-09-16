@@ -18,7 +18,7 @@ This will build two binaries -- `ising` and `random_test`. The latter is a test 
 
 
 ## `ising`
-Call with `ising <L> <Thot> <Tcold> <seed> <n_step=100> <n_sweep=100> <n_sample=30> <J=1>.
+Call with `ising <L> <Thot> <Tcold> <seed> <n_step=100> <n_sweep=100> <n_sample=30> <J=1>`.
 
 Sets up a Checkerboard lattice containing $(2L)^2$ sites, i.e. $L^2$ cubic unit cells. Sweeps from Thot to Tcold in n_step steps, sampling an additional n_sample times at the end of each equilibration. $J$ is the interaction strength, in the "signless" convention
 
