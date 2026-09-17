@@ -1,4 +1,4 @@
-#include "random.HC"
+#include "../random.HC"
 
 
 U8 Main(I32 argc, U8 **argv)

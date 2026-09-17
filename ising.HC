@@ -117,12 +117,13 @@ U8 Setup(I32 argc, U8 **argv, Settings* set, U64* L)
         case 8: set->n_sample = Atoi(argv[7]);
         case 7: set->n_sweep = Atoi(argv[6]);
         case 6: set->n_step = Atoi(argv[5]);
+        case 5:
             break;
         default:
             goto error;
     }
     status=0;
-
+    goto done;
     
 error:
     "%s",help;

@@ -42,31 +42,37 @@ Xoshiro128 NewXoshiro128(U64 seed) {
 
 asm {
 _ROTL::
-    PUSH    RBP
-    MOVQ    RBP,RSP
+    MOVQ     RAX,RDI
+    MOVQ     RDX,RDI
 
-    MOV     RAX,RDI
-    MOV     RCX,RSI
-    ROL     RAX,CL
+    MOVQ     RCX,RSI
 
-    LEAVE
+    SHLQ     RAX, CL
+    NEGQ     RCX
+    ADDQ     RCX, 64
+    SHRQ     RDX, CL
+    ORQ       RAX,RDX
+
     RET
 
 _ROTR::
-    PUSH    RBP
-    MOVQ    RBP,RSP
+    MOVQ     RAX,RDI
+    MOVQ     RDX,RDI
 
-    MOV     RAX,RDI
-    MOV     RCX,RSI
-    ROT     RAX,CL
+    MOVQ     RCX,RSI
 
-    LEAVE
+    SHRQ     RAX, CL
+    NEGQ     RCX
+    ADDQ     RCX, 64
+    SHLQ     RDX, CL
+    ORQ       RAX,RDX
+
     RET
 }
 
 
 public _extern _ROTL U64 RotL(U64 x, U64 distance);
-public _extern _ROTL U64 RotR(U64 x, U64 distance);
+public _extern _ROTR U64 RotR(U64 x, U64 distance);
 
 
 U64 NextXS128(Xoshiro128* x)
